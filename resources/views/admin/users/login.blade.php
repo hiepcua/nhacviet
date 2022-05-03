@@ -7,7 +7,7 @@
 <body class="hold-transition login-page">
     <div class="login-box">
     <div class="login-logo">
-        <a href="{{ route('admin.dashboard') }}"><b>Admin</b></a>
+        <a href="{{ route('admin') }}"><b>Admin</b></a>
     </div>
     <!-- /.login-logo -->
     <div class="card">
@@ -68,7 +68,7 @@
                 </div>
             @endif
 
-            <form action="/admin/login" method="post">
+            <form action="{{ route('handleLogin') }}" method="post">
                 <div class="input-group mb-3">
                     <input type="email" name="email" class="form-control" value="{{ old('email') ?? null }}" placeholder="Email">
                     <div class="input-group-append">

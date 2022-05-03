@@ -15,7 +15,6 @@ class LoginController extends Controller
     }
 
     public function loginForm(){
-        return '111';
         return view('admin.users.login', [
             'title' => 'Đăng nhập hệ thống'
         ]);
@@ -36,16 +35,16 @@ class LoginController extends Controller
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if($validator->fails()){
-            return redirect(route('admin.login'))->withErrors($validator)->withInput();
+            return redirect(route('login'))->withErrors($validator)->withInput();
         }else{
             $email = $request->input('email');
             $password = $request->input('password');
 
             if( Auth::attempt(['email' => $email, 'password' =>$password])) { 
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('admin');
             } else {
                 $request->session()->flash('error', 'Tài khoản hoặc mật khẩu không tồn tại.');
-                return redirect()->route('admin.login');
+                return redirect()->route('login');
             }
         }
     }
@@ -53,7 +52,7 @@ class LoginController extends Controller
     public function logOut(Request $request){
         Auth::logout();
         session()->flash('success-logout', 'Logout Success!');
-        return redirect(route('admin.users.login'));
+        return redirect(route('login'));
     }
 
     function register(){ 
@@ -96,7 +95,7 @@ class LoginController extends Controller
             ];
 
             $this->user->addUser($dataInsert);
-            return redirect()->route('admin.register')->with('msg', 'Đăng ký thành công');
+            return redirect()->route('register')->with('msg', 'Đăng ký thành công');
         }
     }
 
@@ -132,9 +131,9 @@ class LoginController extends Controller
                 ];
 
                 $this->user->updateUser($dataUpdate, $request->email);
-                return redirect()->route('admin.forgot-password')->with('msg', 'Reset mật khẩu thành công');
+                return redirect()->route('forgot-password')->with('msg', 'Reset mật khẩu thành công');
             }else{
-                return redirect()->route('admin.forgot-password')->with('error', 'Something went wrong');
+                return redirect()->route('forgot-password')->with('error', 'Something went wrong');
             }
         }
     }

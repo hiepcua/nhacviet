@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 class MainController extends Controller
 {
     public function index(){
-        return '1111';
         return view('admin.home', [
             'title' => 'Trang quản trị Admin',
         ]);

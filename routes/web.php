@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Users\LoginController;
 use App\Http\Controllers\Admin\MainController;
+use App\Http\Controllers\Admin\MenuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,13 +16,32 @@ use App\Http\Controllers\Admin\MainController;
 |
 */
 
+Route::get('admin/users/login', [LoginController::class, 'loginForm'])->name('login');
+Route::post('admin/users/login', [LoginController::class, 'handleLogin'])->name('handleLogin');
+Route::get('admin/users/register', [LoginController::class, 'register'])->name('register');
+Route::get('admin/users/register', [LoginController::class, 'handleRegister']);
+Route::get('admin/users/login/store', [LoginController::class, 'loginForm'])->name('admin.store');
+Route::get('admin/forgot-password', [LoginController::class, 'forgotPassword'])->name('forgot-password');
+Route::post('admin/forgot-password', [LoginController::class, 'handleForgotPassword']);
+
 Route::middleware(['auth'])->group(function(){
-    Route::get('admin', [MainController::class, 'index'])->name('admin');
-    Route::get('admin/dashboard', [MainController::class, 'index'])->name('admin.dashboard');
-    Route::get('admin/login', [LoginController::class, 'loginForm'])->name('login');
-    Route::post('admin/login', [LoginController::class, 'handleLogin']);
-    Route::get('admin/register', [LoginController::class, 'register'])->name('admin.register');
-    Route::post('admin/register', [LoginController::class, 'handleRegister']);
-    Route::get('admin/forgot-password', [LoginController::class, 'forgotPassword'])->name('admin.forgot-password');
-    Route::post('admin/forgot-password', [LoginController::class, 'handleForgotPassword']);
+    Route::prefix('admin')->group(function(){
+        Route::get('admin', [MainController::class, 'index'])->name('admin');
+        Route::get('admin/main', [MainController::class, 'index']);
+
+        #Menu
+        Route::prefix('menus')->group(function(){
+            Route::get('add', [MenuController::class, 'create']);
+        });
+    });
 });
+
+//     Route::get('admin', [MainController::class, 'index'])->name('admin');
+//     Route::get('admin/dashboard', [MainController::class, 'index'])->name('admin.dashboard');
+//     Route::get('admin/login', [LoginController::class, 'loginForm'])->name('admin.login');
+//     Route::post('admin/login', [LoginController::class, 'handleLogin']);
+//     Route::get('admin/register', [LoginController::class, 'register'])->name('admin.register');
+//     Route::post('admin/register', [LoginController::class, 'handleRegister']);
+//     Route::get('admin/forgot-password', [LoginController::class, 'forgotPassword'])->name('admin.forgot-password');
+//     Route::post('admin/forgot-password', [LoginController::class, 'handleForgotPassword']);
+

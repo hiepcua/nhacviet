@@ -15,6 +15,7 @@ class LoginController extends Controller
     }
 
     public function loginForm(){
+        return '111';
         return view('admin.users.login', [
             'title' => 'Đăng nhập hệ thống'
         ]);

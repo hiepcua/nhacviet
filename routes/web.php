@@ -15,14 +15,13 @@ use App\Http\Controllers\Admin\MainController;
 |
 */
 
-// Admin routes
-Route::prefix('admin')->name('admin.')->group(function(){
-    Route::get('dashboard', [MainController::class, 'index'])->name('dashboard');
-    Route::get('login', [LoginController::class, 'loginForm'])->name('login');
-    Route::post('login', [LoginController::class, 'handleLogin']);
-    Route::get('register', [LoginController::class, 'register'])->name('register');
-    Route::post('register', [LoginController::class, 'handleRegister']);
-    Route::get('forgot-password', [LoginController::class, 'forgotPassword'])->name('forgot-password');
-    Route::post('forgot-password', [LoginController::class, 'handleForgotPassword']);
+Route::middleware(['auth'])->group(function(){
+    Route::get('admin', [MainController::class, 'index'])->name('admin');
+    Route::get('admin/dashboard', [MainController::class, 'index'])->name('admin.dashboard');
+    Route::get('admin/login', [LoginController::class, 'loginForm'])->name('login');
+    Route::post('admin/login', [LoginController::class, 'handleLogin']);
+    Route::get('admin/register', [LoginController::class, 'register'])->name('admin.register');
+    Route::post('admin/register', [LoginController::class, 'handleRegister']);
+    Route::get('admin/forgot-password', [LoginController::class, 'forgotPassword'])->name('admin.forgot-password');
+    Route::post('admin/forgot-password', [LoginController::class, 'handleForgotPassword']);
 });
-

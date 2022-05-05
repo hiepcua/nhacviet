@@ -232,4 +232,5 @@ return [
 
     ],
 
+    'Helper'=> App\Helpers\Helper::class,
 ];

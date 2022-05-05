@@ -31,7 +31,13 @@ Route::middleware(['auth'])->group(function(){
 
         #Menu
         Route::prefix('menus')->group(function(){
+            Route::get('/', [MenuController::class, 'index']);
+            Route::get('list', [MenuController::class, 'index']);
             Route::get('add', [MenuController::class, 'create']);
+            Route::post('add', [MenuController::class, 'store']);
+            Route::get('edit/{id}', [MenuController::class, 'show']);
+            Route::post('edit/{id}', [MenuController::class, 'update']);
+            Route::delete('destroy', [MenuController::class, 'destroy']);
         });
     });
 });

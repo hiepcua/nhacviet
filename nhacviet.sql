@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 30/04/2022 12:22:05
+ Date: 05/05/2022 18:13:29
 */
 
 SET NAMES utf8mb4;
@@ -35,6 +35,29 @@ CREATE TABLE `failed_jobs`  (
 -- ----------------------------
 -- Records of failed_jobs
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for menus
+-- ----------------------------
+DROP TABLE IF EXISTS `menus`;
+CREATE TABLE `menus`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `parent_id` int NULL DEFAULT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `active` int NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of menus
+-- ----------------------------
+INSERT INTO `menus` VALUES (1, 'Trang chủ', 0, 'Trang chủ', '<p>Trang chủ</p>', 'trang-chu', 1);
+INSERT INTO `menus` VALUES (4, 'Nước hoa nam', 2, 'Nước hoa nam', '<p>Nước hoa nam</p>', 'nuoc-hoa-nam', 1);
+INSERT INTO `menus` VALUES (6, 'Danh mục 2', 0, 'Danh mục 2', '<p>Danh mục 2</p>', 'danh-muc-2', 1);
+INSERT INTO `menus` VALUES (7, 'Danh mục 3', 0, 'Danh mục 3', '<p>Danh mục 3</p>', 'danh-muc-3', 1);
 
 -- ----------------------------
 -- Table structure for migrations

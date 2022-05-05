@@ -1,5 +1,9 @@
 @extends('admin.main')
 
+@section('head')
+    <script src="/ckeditor/ckeditor.js"></script>
+@endsection
+
 @section('content')
 <section class="content">
     <div class="container-fluid">
@@ -12,19 +16,23 @@
                 <h3 class="card-title">{{$title}}</h3>
             </div>
             <!-- /.card-header -->
+            @include('admin.alert')
             <!-- form start -->
             <form id="frm-action" method="POST" action="">
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
                         <label for="">Tên danh mục</label>
-                        <input type="text" name="name" class="form-control" placeholder="Enter name">
+                        <input type="text" name="name" class="form-control" placeholder="Tên danh mục">
                     </div>
                     
                     <div class="form-group">
                         <label for="">Danh mục</label>
                         <select name="parent_id" class="form-control">
                             <option value="0">Danh mục cha</option>
+                            @foreach ($parent_menu as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
                         </select>
                     </div>
 
@@ -35,8 +43,20 @@
 
                     <div class="form-group">
                         <label for="">Mô tả chi tiết</label>
-                        <textarea name="content" class="form-control"></textarea>
+                        <textarea name="content" id="content" class="form-control"></textarea>
                     </div>
+
+                    <div class="form-group">
+                        <label for="">Kích hoạt</label>
+                        <div class="custom-control custom-radio">
+                            <input class="custom-control-input" type="radio" id="active" name="active" value="1" checked="">
+                            <label for="active" class="custom-control-label">Có</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input class="custom-control-input" type="radio" id="no_active" name="active" value="0">
+                            <label for="no_active" class="custom-control-label">Không</label>
+                        </div>
+                      </div>
                 </div>
 
                 <!-- /.card-body -->
@@ -57,4 +77,12 @@
         <!-- /.row -->
     </div><!-- /.container-fluid -->
 </section>
+@endsection
+
+@section('footer')
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor 4
+        // instance, using default configuration.
+        CKEDITOR.replace( 'content' );
+    </script>
 @endsection
